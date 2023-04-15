@@ -6,8 +6,6 @@ const path = require('path');
 const { Console } = require("console");
 const PORT = 3000;
 
-let context = require("./data/data12.json")
-console.log(context)
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -44,7 +42,6 @@ const coll1 = new Datastore({
 });
 
 app.get("/insertCar", function (req, res) {
-    console.log(req.query);
     data = req.query;
     let obj = {
         ubezpieczony: data.ubezpieczony == "tak" ? "TAK" : "NIE",
@@ -52,7 +49,6 @@ app.get("/insertCar", function (req, res) {
         uszkodzony: data.uszkodzony == "tak" ? "TAK" : "NIE",
         naped4x4: data.naped4x4 == "tak" ? "TAK" : "NIE",
     }
-    console.log(obj)
 
 
     let ctx = {};
@@ -64,10 +60,8 @@ app.get("/insertCar", function (req, res) {
         ctx = {
             info: `new car with id ${newObj._id} added to database`
         }
-        console.log(ctx)
     })
     setTimeout(() => {
-        console.log(ctx)
         res.render('addCar.hbs', ctx);
     }, 100)// nie podajemy ścieżki tylko nazwę pliku
 })
@@ -76,14 +70,9 @@ app.get("/carList", function (req, res) {
     let ctx = {}
     coll1.find({}, function (err, docs) {
         //zwracam dane w postaci JSON
-        console.log("----- tablica obiektów pobrana z bazy: \n")
-        console.log(docs)
-        console.log("----- sformatowany z wcięciami obiekt JSON: \n")
-        console.log(JSON.stringify({ "docsy": docs }, null, 5))
         ctx = docs;
     });
     setTimeout(() => {
-        console.log(ctx)
         res.render('carList.hbs', ctx);
     }, 50)// nie podajemy ścieżki tylko nazwę pliku
 })
@@ -92,7 +81,6 @@ app.get("/deleteCar", function (req, res) {
 
 
     data = req.query;
-    console.log(data)
     coll1.remove({ _id: data.id }, { multi: true }, function (err, numRemoved) {
         console.log("usunięto dokumentów: ", numRemoved)
     });
@@ -113,7 +101,6 @@ app.get("/editCar", function (req, res) {
 
 app.get("/updateCar", function (req, res) {
     let data = req.query;
-    console.log(data)
     coll1.update({ _id: data.id }, { ubezpieczony: data.ubezpieczony, benzyna: data.benzyna, uszkodzony: data.uszkodzony, naped4x4: data.naped4x4 }, {}, function (err, numReplaced) { console.log(numReplaced) })
     setTimeout(() => {
         res.redirect('editCar');
