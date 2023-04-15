@@ -1,0 +1,28 @@
+{{> header}}
+<div class="container-fluid">
+    <h1>Car list</h1>
+    <table class="table">
+        <tr>
+            <th>_id</th>
+            <th>ubezpieczony</th>
+            <th>benzyna</th>
+            <th>uszkodzony</th>
+            <th>naped4x4</th>
+            <th></th>
+        </tr>
+        {{#each this}}
+        {{#if _id}}
+        <tr>
+            <td>{{_id}}</td>
+            <td>{{ubezpieczony}}</td>
+            <td>{{benzyna}}</td>
+            <td>{{uszkodzony}}</td>
+            <td>{{naped4x4}}</td>
+            <td>
+                <div class="btn-danger btn" onclick="handle_delete('{{_id}}')">DELETE</div>
+            </td>
+        </tr>
+        {{/if}}
+        {{/each}}
+    </table>
+</div>

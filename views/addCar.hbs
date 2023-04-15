@@ -1,0 +1,14 @@
+{{> header}}
+<div class="container-fluid">
+    <h1>Add a car</h1>
+    {{#if info}}
+    <div class="alert alert-success">{{info}}</div>
+    {{/if}}
+    <form action="/insertCar" method="GET">
+        <label><input type="checkbox" name="ubezpieczony" value="tak"> ubezpieczony</label><br>
+        <label><input type="checkbox" name="benzyna" value="tak"> benzyna</label><br>
+        <label><input type="checkbox" name="uszkodzony" value="tak"> uszkodzony</label><br>
+        <label><input type="checkbox" name="naped4x4" value="tak"> napęd 4x4</label><br>
+        <input class="btn" type="submit" value="Add">
+    </form>
+</div>
